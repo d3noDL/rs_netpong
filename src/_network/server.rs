@@ -3,11 +3,12 @@ use std::{net::*, io::Read};
 
 pub fn host(ip: &String) {
     let listener = TcpListener::bind(ip).unwrap();
-    let listener_true = listener.try_clone().unwrap();
-    listen(&listener_true);
+    println!("Started server on {}", &ip);
+    listen(&listener);
 }
 
 fn listen(listener: &TcpListener) {
+    println!("Listening for connections...");
     for stream in listener.incoming(){
         let mut tcp_stream = stream.unwrap();
         println!("Received connection from: {}", tcp_stream.peer_addr().unwrap());
