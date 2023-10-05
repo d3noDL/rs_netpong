@@ -1,10 +1,9 @@
 use std::{net::*, io::Read};
-
-
-pub fn host(ip: &String) {
+use std::thread;
+pub fn host(ip: &String, name: &str) {
     let listener = TcpListener::bind(ip).unwrap();
-    println!("Started server on {}", &ip);
-    listen(&listener);
+    println!("Started server on {} as {}", &ip, &name);
+    thread::spawn(move ||{listen(&listener)});
 }
 
 fn listen(listener: &TcpListener) {
